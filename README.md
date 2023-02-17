@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Snapify
+
+Snapify is an open source social media application. It allows users to share photos, memories and update their user information.
+
+## Homepage preview
+![Homepage Preview](https://res.cloudinary.com/snapify/image/upload/v1676625780/portfolio/transparent-edited_lc2q34.png)
+
+## Features
+
+- Share photos and memories with captions
+- User can perform follow, like, and comment
+- Update user information, including profile picture and username
+
+## Technology Used
+
+- Next.js or React: A popular JavaScript framework for building user interfaces.
+- TailwindCSS: A utility-first CSS framework for styling web applications.
+- Next-Auth: A complete authentication solution for Next.js applications.
+- Cloudinary: A cloud-based media management platform for storing and manipulating media assets.
+- Mongoose or MongoDB: A flexible and scalable NoSQL document-based database. 
 
 ## Getting Started
 
-First, run the development server:
+To get started with Snapify, you will need to have Node.js installed on your computer.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. Clone the repository to your local machine.
+2. Run `npm install` to install the project's dependencies.
+3. Set up a MongoDB database and add the database URL to `.env` file.
+4. Set up a Cloudinary account and add the Cloudinary details to `.env` file.
+5. Run `npm run dev` to start the development server.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contributing
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Snapify is an open source project and contributions are welcome. To contribute, please fork the repository and create a pull request.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## License
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Snapify is licensed under the MIT license. See the [LICENSE](LICENSE) file for more information.
