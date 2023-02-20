@@ -39,7 +39,7 @@ export default async function handler(req, res) {
 
       try {
         if (search) {
-          if (isValidObjectId(search)) {
+          if (search.match(/^[0-9a-fA-F]{24}$/)) {
             let postRes
             if (noSkip) {
               postRes = await Post.find({ _id: search })
