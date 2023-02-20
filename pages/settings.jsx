@@ -9,6 +9,7 @@ import userSession from "../utils/userSession"
 import { Input, InputField } from "../components/InputField"
 import ConfirmationBox from "../components/ConfirmationBox"
 import StickyBlock from "../components/StickyBlock.jsx"
+import Head from "next/head"
 
 export async function getServerSideProps(context) {
   try {
@@ -115,6 +116,8 @@ export default function Settings({ data: session }) {
         setIsEditing({ ...isEditing, inputs: true, image: true })
         break
       case "currentPassword":
+      case "newPassword":
+      case "confirmPassword":
         setFormData({ ...formData, [name]: value })
         setIsEditing({ ...isEditing, inputs: true, password: true })
         break
@@ -126,6 +129,9 @@ export default function Settings({ data: session }) {
 
   return (
     <MainLayout>
+      <Head>
+        <title>Settings</title>
+      </Head>
       <Toaster />
       <StickyBlock />
       <div className="p-7 bg-white rounded-lg shadow-sm">

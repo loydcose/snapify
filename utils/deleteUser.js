@@ -22,10 +22,10 @@ const deleteUser = async (req, res) => {
     ])
 
     // remove user image in cloudinary
-    const userImage =
-      user.image.split("/")[1] !== "defaults"
-        ? await cloudinary.uploader.destroy(user.image)
-        : null
+    let userImage = null
+    if (user.image.split("/")[1] !== "defaults") {
+      userImage = await cloudinary.uploader.destroy(user.image)
+    }
 
     // remove user posts images in cloudinary
     const postsRes =

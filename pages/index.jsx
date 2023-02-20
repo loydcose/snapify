@@ -9,6 +9,7 @@ import encodeUrl from "../utils/encodeUrl"
 import useScroll from "../hooks/useScroll"
 import Alert from "../components/Alert"
 import StickyBlock from "../components/StickyBlock.jsx"
+import Head from "next/head"
 
 export async function getServerSideProps(context) {
   try {
@@ -76,6 +77,9 @@ export default function Home({ data: session, initialPosts, query }) {
 
   return (
     <MainLayout>
+      <Head>
+        <title>Homepage</title>
+      </Head>
       <StickyBlock />
       <FeedBtns />
       {posts.length === 0 && query.feed === "following" && (

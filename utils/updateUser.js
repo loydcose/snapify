@@ -68,8 +68,12 @@ const updateUser = async (req, res) => {
       // change profile picture
       if (req.body?.image) {
         const { image } = req.body
+
         // delete the previous image first in the cloudinary
-        const deleteRes = await cloudinary.uploader.destroy(session.image)
+        let deleteRes = {}
+        if (session.image.split("/")[1] !== "defaults") {
+          deleteRes = await cloudinary.uploader.destroy(session.image)
+        }
 
         // upload the image to cloudinary
         const uploadRes = await cloudinary.uploader.upload(image, {

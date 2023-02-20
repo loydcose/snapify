@@ -31,7 +31,7 @@ export default function Post({ session, post, actions, setPosts }) {
   const limitedComments = comments.slice(0, commentDisplay)
 
   // handles certain actions
-  const { handleFollow, handleLike, handleComment } = usePost(
+  const { loading, handleFollow, handleLike, handleComment } = usePost(
     session,
     commentRef,
     authorId,
@@ -97,7 +97,12 @@ export default function Post({ session, post, actions, setPosts }) {
             <button
               type="button"
               onClick={handleFollow}
-              className={`text-blue-600 font-medium bg-blue-600/[.10] hover:bg-blue-600/[.20] py-2 px-4 text-sm rounded-lg transition-colors`}
+              className={`${
+                loading.follow
+                  ? "text-gray-400 bg-gray-100"
+                  : "text-blue-600 bg-blue-600/[.10] hover:bg-blue-600/[.20]"
+              }  font-medium  py-2 px-4 text-sm rounded-lg transition-colors`}
+              disabled={loading.follow}
             >
               Follow{followBtnStyle && "ed"}
             </button>
@@ -126,6 +131,7 @@ export default function Post({ session, post, actions, setPosts }) {
             type="button"
             onClick={handleLike}
             className="group flex text-[15px] items-center gap-2"
+            disabled={loading.like}
           >
             {isLiked ? (
               <AiFillHeart className="text-xl text-gray-500 group-hover:text-blue-600 transition-colors" />
@@ -218,6 +224,7 @@ export default function Post({ session, post, actions, setPosts }) {
             <button
               type="submit"
               className="rounded-md p-2 w-8 hover:bg-gray-200 aspect-square transition-colors"
+              disabled={loading.comment}
             >
               <MdSend className="text-lg text-blue-600" />
             </button>

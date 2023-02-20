@@ -6,6 +6,7 @@ import toast, { Toaster } from "react-hot-toast"
 import { useRouter } from "next/router"
 import userSession from "../utils/userSession"
 import { Input } from "../components/InputField"
+import Head from "next/head"
 
 export async function getServerSideProps(context) {
   const session = await userSession(context)
@@ -92,6 +93,9 @@ export default function Signup() {
 
   return (
     <AuthLayout>
+      <Head>
+        <title>Sign up</title>
+      </Head>
       <Toaster />
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <h2 className="text-xl mb-4 font-bold">Sign up page</h2>

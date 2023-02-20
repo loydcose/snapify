@@ -11,6 +11,7 @@ import encodeUrl from "../utils/encodeUrl"
 import getApiUrl from "../getApiUrl"
 import axios from "axios"
 import StickyBlock from "../components/StickyBlock.jsx"
+import Head from "next/head"
 
 export async function getServerSideProps(context) {
   try {
@@ -64,6 +65,9 @@ export default function Search({ data: session, initialPosts, users, query }) {
 
   return (
     <MainLayout>
+      <Head>
+        <title>Search</title>
+      </Head>
       <StickyBlock />
 
       <div className="py-7 bg-white shadow-sm rounded-lg">

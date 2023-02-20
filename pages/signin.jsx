@@ -6,6 +6,7 @@ import { useState } from "react"
 import { useRouter } from "next/router"
 import userSession from "../utils/userSession"
 import { Input } from "../components/InputField"
+import Head from "next/head"
 
 export async function getServerSideProps(context) {
   const session = await userSession(context)
@@ -68,6 +69,9 @@ export default function Signin() {
 
   return (
     <AuthLayout>
+      <Head>
+        <title>Sign in</title>
+      </Head>
       <Toaster />
       <form onSubmit={handleSubmit} className="flex flex-col gap-2">
         <h2 className="text-xl mb-4 font-bold">Sign in page</h2>

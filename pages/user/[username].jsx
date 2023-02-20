@@ -16,37 +16,45 @@ import { useRouter } from "next/router"
 import Alert from "../../components/Alert"
 
 export async function getServerSideProps(context) {
-  const { req, res, query } = context
-  let session = await unstable_getServerSession(req, res, authOptions)
-  const user = await User.findOne({
-    _id: session._id,
-  })
+  try {
+    const { req, res, query } = context
+    let session = await unstable_getServerSession(req, res, authOptions)
+    let user = null
+    await dbConnect()
 
-  // find user base on the query username value
-  await dbConnect()
-  const authorRes = await User.findOne({ username: query.username })
-
-  //redirects to 404 page if the user not found
-  if (!authorRes) {
-    return {
-      notFound: true,
-    }
-  }
-
-  // fetch all user's posts
-  const posts = await Post.find({ authorId: authorRes._id })
-
-  // combined all the gathered data
-  const author = { ...authorRes._doc, posts }
-  author.password = undefined
-
-  return {
-    props: JSON.parse(
-      JSON.stringify({
-        user,
-        author,
+    if (session) {
+      user = await User.findOne({
+        _id: session._id,
       })
-    ),
+    }
+
+    // find user base on the query username value
+    const authorRes = await User.findOne({ username: query.username })
+
+    //redirects to 404 page if the user not found
+    if (!authorRes) {
+      return {
+        notFound: true,
+      }
+    }
+
+    // fetch all user's posts
+    const posts = await Post.find({ authorId: authorRes._id })
+
+    // combined all the gathered data
+    const author = { ...authorRes._doc, posts }
+    author.password = undefined
+
+    return {
+      props: JSON.parse(
+        JSON.stringify({
+          user,
+          author,
+        })
+      ),
+    }
+  } catch (error) {
+    console.error(error)
   }
 }
 
@@ -54,6 +62,7 @@ const Profile = ({ user, author }) => {
   const router = useRouter()
   const { username, followers, following, image, posts, _id: authorId } = author
   const [isFollowedBtn, setIsFollowedBtn] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   // check if user has followed the author
   const checkFollow = (follower = user) => {
@@ -63,8 +72,10 @@ const Profile = ({ user, author }) => {
 
   // initial check
   useEffect(() => {
-    checkFollow()
-  }, [authorId, user.following])
+    if (user) {
+      checkFollow()
+    }
+  }, [authorId, user?.following])
 
   // handle follow click that fetches and do the rechecking
   const handleFollow = async () => {
@@ -72,10 +83,12 @@ const Profile = ({ user, author }) => {
       router.push("/signin")
       return
     }
+    setLoading(true)
     try {
       const response = await axios.put(
         `/api/users?type=follow&authorId=${authorId}`
       )
+      setLoading(false)
       checkFollow(response.data.user)
     } catch (error) {
       console.error(error.message)
@@ -103,13 +116,18 @@ const Profile = ({ user, author }) => {
               <p>{following.length} following</p>
             </div>
           </div>
-          {user._id !== author._id && (
+          {user?._id !== author._id && (
             <button
               type="button"
-              className="flex items-center gap-2 text-sm text-blue-600 bg-blue-600/[.10] hover:bg-blue-600/[.15] active:bg-blue-600/[.10] rounded-lg py-2 px-6 ml-auto"
+              className={`${
+                loading
+                  ? "text-gray-400 bg-gray-100"
+                  : "text-blue-600 bg-blue-600/[.10] hover:bg-blue-600/[.15]"
+              } flex items-center gap-2 text-sm rounded-lg py-2 px-6 ml-auto font-medium`}
               onClick={handleFollow}
+              disabled={loading}
             >
-              {isFollowedBtn ? "Followed" : "Follow"}
+              Follow{isFollowedBtn && "ed"}
             </button>
           )}
         </div>
@@ -157,7 +175,5 @@ const Profile = ({ user, author }) => {
     </MainLayout>
   )
 }
-
-// ung modal maimenu walang bg-white
 
 export default Profile
