@@ -113,7 +113,7 @@ export default function NewSnap({ className, setDisplayNew }) {
               id="topics"
               name="topics"
               placeholder="developer, programming"
-              pattern="^([a-zA-Z]+[,\s]*){1,20}$"
+              pattern="^([a-zA-Z0-9]+[,\s]*){1,20}$"
               title="Comma separated, maximum of 20 topics"
               className="border border-gray-300 p-2 focus:ring-1 focus:ring-blue-600 transition outline-none rounded-md text-sm"
             />

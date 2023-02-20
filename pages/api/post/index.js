@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       const { feed, value: search } = req.query
       const page = req.query.page || 1
       const noSkip = req.query.noSkip || false
-      const limit = 2
+      const limit = 4
       const index = (page - 1) * limit
       let posts = []
       let users = []
