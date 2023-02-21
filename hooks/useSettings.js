@@ -67,7 +67,7 @@ export default function useSettings(session, formData) {
       }
 
       // after deletion, clear cookies and redirect to signin page
-      signOut()
+      await signOut()
       router.push("/signin")
     } catch (error) {
       console.error(error.message)

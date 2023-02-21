@@ -38,11 +38,18 @@ export default function MenuLinks({ session }) {
           </li>
         </>
       ) : (
-        <li>
-          <Link href="/signin" className={style.link}>
-            <span className={style.text}>Sign in</span>
-          </Link>
-        </li>
+        <>
+          <li>
+            <Link href="/signup" className={style.link}>
+              <span className={style.text}>Register</span>
+            </Link>
+          </li>
+          <li>
+            <Link href="/signin" className={style.link}>
+              <span className={style.text}>Sign in</span>
+            </Link>
+          </li>
+        </>
       )}
     </ul>
   )
